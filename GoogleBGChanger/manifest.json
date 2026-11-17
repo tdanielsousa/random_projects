@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Google BG change",
+  "version": "1.0",
+  "description": "Change bg color of dark mode",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.google.com/*",
+        "https://*.google.pt/*"
+      ],
+      "css": ["style.css"],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>webm viewer</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        background-color: #aaa;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+      }
+      button,
+      input[type="file"] {
+        width: 200px;
+      }
+      h2 {
+        font-size: 1rem;
+        font-weight: normal;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        width: 75%;
+        margin: 0 auto;
+      }
+      .grid video {
+        width: 100%;
+        height: auto;
+        background: #000;
+      }
+      @media (max-width: 600px) {
+        .grid {
+          width: 100%;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <button id="b1" type="button">Randomize Clips</button>
+      <input type="file" id="files" accept="video/webm" multiple />
+      <button id="b2" type="button">10 second rotation: OFF</button>
+    </div>
+
+    <h2>
+      Click "Choose files", select your webm files, then hit Randomize Clips.
+    </h2>
+
+    <div class="grid" id="grid"></div>
+
+    <script>
+      var timer = false;
+      var interv = null;
+      var grid = document.getElementById("grid");
+      var input = document.getElementById("files");
+
+      for (var i = 0; i < 9; i++) {
+        var v = document.createElement("video");
+        v.autoplay = true;
+        v.loop = true;
+        v.muted = true;
+        v.playsInline = true;
+        grid.appendChild(v);
+      }
+
+      function randomize() {
+        var files = input.files;
+        if (files.length === 0) {
+          alert("Select some files first");
+          return;
+        }
+        grid.querySelectorAll("video").forEach(function (v) {
+          if (v.dataset.url) URL.revokeObjectURL(v.dataset.url);
+          var file = files[Math.floor(Math.random() * files.length)];
+          var url = URL.createObjectURL(file);
+          v.dataset.url = url;
+          v.src = url;
+          v.play().catch(function () {});
+        });
+      }
+
+      function toggleRotation() {
+        if (input.files.length === 0) {
+          alert("Select some files first");
+          return;
+        }
+        timer = !timer;
+        if (timer) {
+          interv = setInterval(randomize, 10000);
+        } else {
+          clearInterval(interv);
+        }
+        document.getElementById("b2").textContent =
+          "10 second rotation: " + (timer ? "ON" : "OFF");
+      }
+
+      document.getElementById("b1").addEventListener("click", randomize);
+      document.getElementById("b2").addEventListener("click", toggleRotation);
+    </script>
+  </body>
+</html>

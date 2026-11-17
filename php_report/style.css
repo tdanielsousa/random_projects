@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/* html {
+	background: #131313 ;
+}
+*/
+
+tbody tr:nth-child(odd) {
+  background-color: #ccc;
+}
+
+body {
+  /*background: sdfsdf; */
+  line-height: 1.75em;
+  color: #000000;
+  font-size: 12.5pt;
+  font-family: Arial, sans-serif;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}
