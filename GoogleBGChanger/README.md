@@ -6,6 +6,10 @@ Since recent updates google changed their Dark Mode color to a blue-ish tint, wh
 
 > Disclaimer: This extension overrides CSS variables and class names that Google generates (such as `--xhUGwc` and `.RDmXvc`). 
 Those names are internal and can change at any time, so the extension may stop working after a Google update.
+
+<p align="center">
+  <img src="https://github.com/tdanielsousa/tdanielsousa/blob/main/gifs/bg.PNG" alt="Survival" width="600px" />
+</p>
 ---
 
 ##  How It Works
